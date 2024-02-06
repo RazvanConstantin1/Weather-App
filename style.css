@@ -129,6 +129,22 @@ h1 {
   margin: 5px 0 -12px 0;
 }
 
+.my-cities {
+  margin-top: 20px;
+}
+
+.my-cities ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  margin-left: 20px;
+}
+
+.my-cities h4 {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 1400px) {
   .weather-data . .current-weather {
     padding: 20px;
