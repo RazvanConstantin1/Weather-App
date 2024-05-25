@@ -4,10 +4,74 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style.css" />
     <title>Weather App</title>
   </head>
   <body>
+    <main class="container">
+      <header>
+        <h1>Weather App</h1>
+        <label for="unitType" class="switch">
+          <input type="checkbox" id="unitType" checked />
+          <div class="slider">
+            <span>Metric</span>
+          </div>
+        </label>
+      </header>
+      <form class="search-form">
+        <span class="material-symbols-ountlined"> </span>
+        <input
+          type="text"
+          id="search"
+          placeholder="Enter city, state or country name"
+          required
+        />
+      </form>
+      <section class="grid">
+        <div class="grid-item day-time">
+          <h2 class="location">Location</h2>
+          <!-- weather data -->
+          <div class="weather-data">
+            <div>
+              <span class="temp">99.99</span>
+              <span class="unit">°C</span>
+            </div>
+            <div class="desc">Description</div>
+            <div>
+              <strong>H:</strong>
+              <span class="max">99.99°C</span>
+              <strong>H:</strong>
+              <span class="min">99.99°C</span>
+            </div>
+          </div>
+          <!-- weather icon -->
+
+          <img src="./img/01d.png" alt="" class="weather-image" />
+        </div>
+        <div class="grid-item">
+          <h5>Feels Like</h5>
+          <p class="feels-like">99.99 °C</p>
+        </div>
+        <div class="grid-item">
+          <h5>Humidity</h5>
+          <p class="humidity">99%</p>
+        </div>
+        <div class="grid-item">
+          <h5>Wind Speed</h5>
+          <p class="wind-speed">99.99 m/s</p>
+        </div>
+        <div class="grid-item">
+          <h5>Pressure</h5>
+          <p class="pressure">9999 hPa</p>
+        </div>
+      </section>
+    </main>
     <script src="./script.js" defer></script>
   </body>
 </html>
