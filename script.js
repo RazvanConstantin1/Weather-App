@@ -3,6 +3,19 @@
 const API_KEY = "81efd49b0be053aecd506b5fb8a8d754";
 const BASE_URL_API = "https://api.openweathermap.org/data/2.5/weather";
 
+const content = {
+  locationName: document.querySelector(".location"),
+  temp: document.querySelector(".temp"),
+  unit: document.querySelector(".unit"),
+  desc: document.querySelector(".desc"),
+  max: document.querySelector(".max"),
+  min: document.querySelector(".min"),
+  feelsLike: document.querySelector(".feels-like"),
+  humidity: document.querySelector(".humidity"),
+  windSpeed: document.querySelector(".wind-speed"),
+  pressure: document.querySelector(".pressure"),
+};
+
 const searchForm = document.querySelector(".search-form");
 searchForm.addEventListener("submit", onSearchFormSubmit);
 
@@ -57,6 +70,7 @@ async function fetchData(apiUrl) {
 }
 
 function displayWeatherData(data, isImperial) {
+  // set units
   const tempUnit = isImperial ? "°F" : "°C";
   const windSpeedUnit = isImperial ? "mph" : "m/s";
   const pressureUnit = isImperial ? "inHg" : "hPa";
