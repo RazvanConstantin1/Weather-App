@@ -74,14 +74,64 @@ async function fetchData(apiUrl) {
 
 function displayWeatherData(data, isImperial) {
   const { weather, main, wind, sys, name } = data;
-  console.log(data);
+  console.log(weather, main, wind, sys, name);
 
   // set units
   const tempUnit = isImperial ? "°F" : "°C";
   const windSpeedUnit = isImperial ? "mph" : "m/s";
   const pressureUnit = isImperial ? "inHg" : "hPa";
 
+  // convert pressure
+  const pressureInHg = (main.pressure / 33.8639).toFixed(2);
+  const pressure = isImperial ? pressureInHg : main.pressure;
+
   // set data
-  // content.locationName.textContent = name;
-  // content.temp.textContent = main.temp;
+  content.locationName.textContent = name;
+  content.temp.textContent = main.temp.toFixed(2);
+  content.unit.textContent = tempUnit;
+  content.desc.textContent = weather[0].description;
+  content.max.textContent = `${main.temp_max} ${tempUnit}`;
+  content.min.textContent = `${main.temp_min} ${tempUnit}`;
+  content.feelsLike.textContent = `${main.feels_like}${tempUnit}`;
+  content.humidity.textContent = `${main.humidity}%`;
+  content.windSpeed.textContent = `${wind.speed} ${windSpeedUnit}`;
+  content.pressure.textContent = `${pressure} ${pressureUnit}`;
+  content.weatherImage.src = `./img/${weather[0].icon}.png`;
+
+  const currentTimeStamp = Math.floor(Date.now() / 1000);
+
+  const isDayTime =
+    currentTimeStamp >= sys.sunrise && currentTimeStamp <= sys.sunset;
+
+  content.mainGrid.classList.toggle("day-time", isDayTime);
+  content.mainGrid.classList.toggle("night-time", !isDayTime);
 }
+
+function getCurrentPosition() {
+  return new Promise((resolve) => {
+    // if geolocation is not enabled, set Tokyo as default
+    const latitude = 35.689487;
+    const longitude = 139.691706;
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => resolve(position.coords),
+        () => resolve({ latitude, longitude })
+      );
+    } else {
+      resolve({ latitude, longitude });
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const { latitude, longitude } = await getCurrentPosition();
+
+    const data = await getWeatherByPosition(latitude, longitude, "metric");
+
+    displayWeatherData(data, false);
+  } catch (error) {
+    console.error("Error fetching data on page load", error);
+  }
+});
